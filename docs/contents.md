@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [Getting started] (./getting-started.md)
+- [Getting started](./getting-started.md)
 - [executeDBRequest](,/execute-db-request.md)
 - findOne
 - insertOne
