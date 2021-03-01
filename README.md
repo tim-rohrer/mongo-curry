@@ -40,7 +40,7 @@ If you like this library, consider supporting me by buying me a coffee.
 
 It allows me to stay awake and focused building projects like this for you.
 
-[Buy me a coffee](https://buymeacoffee.com/creplav)
+[Buy me a coffee]((https://buymeacoffee.com/creplav)
 
 
 ## Contribution
