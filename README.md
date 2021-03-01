@@ -32,7 +32,7 @@ config({
 });
 ```
 
-For all functions, see the full docs [here](./docs/contents.md)
+For all functions, see the full docs [here](https://gitlab.com/Creplav/mongo-curry/-/wikis/home)
 
 ## Support
 
