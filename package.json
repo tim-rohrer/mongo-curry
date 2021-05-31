@@ -1,6 +1,6 @@
 {
  "name": "mongo-curry",
- "version": "0.1.0",
+ "version": "0.1.1",
  "description": "A simple, curried approach to MongoDB for Node",
  "main": "dist/mongo-curry.js",
  "repository": "git@gitlab.com:Creplav/mongo-curry.git",
