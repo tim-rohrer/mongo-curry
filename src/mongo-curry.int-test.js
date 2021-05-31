@@ -1,8 +1,17 @@
 import { describe } from 'riteway';
-import { pingDB } from './mongo-curry';
+import { config, pingDB } from './mongo-curry';
+
+config({
+	DB_URL: 'localhost',
+	DB_PORT: 27017,
+	DB_NAME: 'mongo-curry',
+	TEST_DB_NAME: 'mongo-curry-test',
+});
+
+
 
 describe('pingDB', async assert => {
-	
+		
 	assert({
 		given: 'database connection',
 		should: 'return OK ping',

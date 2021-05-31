@@ -168,7 +168,7 @@ export const updateItemsInCollection = collection => validation => async (items)
  * @returns { Object } the result object.
  */
 export const deleteItemFromCollection = collection => async (itemID) => 
-	await collection.deleteOne({_id: itemID});
+	await collection.deleteOne({_id: new ObjectId(itemID)});
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
