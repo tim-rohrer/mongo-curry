@@ -3,15 +3,22 @@
  "version": "0.1.1",
  "description": "A simple, curried approach to MongoDB for Node",
  "main": "dist/mongo-curry.js",
+ "exports": {
+  ".": "./dist/mongo-curry.js"
+},
+"types": "./dist/mongo-curry.d.ts",
+"type": "module",
  "repository": "git@gitlab.com:Creplav/mongo-curry.git",
  "author": "Ben Doty <creplav@gmail.com>",
  "license": "GNU AGPLv3",
  "private": false,
  "scripts": {
-  "build": "babel src -d dist/",
+  "babel-build": "babel src -d dist/",
   "eslint": "eslint --fix",
   "test": "yarn build && nyc riteway -r @babel/polyfill dist/**/**/*.test.js dist/**/*.test.js | tap-nirvana",
-  "itest": "yarn build && nyc riteway  -r @babel/polyfill dist/**/**/*.int-test.js dist/**/*.int-test.js | tap-nirvana"
+  "itest": "yarn build && nyc riteway  -r @babel/polyfill dist/**/**/*.int-test.js dist/**/*.int-test.js | tap-nirvana",
+  "build:clean": "rm -rf dist/*",
+  "build": "npm run build:clean && tsc --project tsconfig.json"
  },
  "husky": {
   "hooks": {
@@ -33,7 +40,8 @@
   "husky": "^5.1.1",
   "nyc": "^15.1.0",
   "riteway": "^6.2.1",
-  "tap-nirvana": "^1.1.0"
+  "tap-nirvana": "^1.1.0",
+  "typescript": "^4.7.4"
  },
  "dependencies": {
   "mongodb": "^4.8.0"
