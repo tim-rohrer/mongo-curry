@@ -1,9 +1,8 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
-
 export const config = ({DB_URL, DB_PORT, DB_NAME, TEST_DB_NAME}) => {
 
-	const notDefinedError = key => `[ERROR] [mongo-curry]: ${key} is required but is not defined`;
+	const notDefinedError = (key: string) => `[ERROR] [mongo-curry]: ${key} is required but is not defined`;
 
 	if(!DB_URL)
 		throw notDefinedError('DB_URL');
@@ -26,7 +25,7 @@ export const config = ({DB_URL, DB_PORT, DB_NAME, TEST_DB_NAME}) => {
 			? console.log(`${key} is already defined in process.env.`) 
 			: process.env[key] = configOptions[key]
 	);
-}
+};
 
 
 
@@ -35,7 +34,7 @@ export const config = ({DB_URL, DB_PORT, DB_NAME, TEST_DB_NAME}) => {
  */
 const connectToDB = async () => 
 	MongoClient
-		.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}`, { useUnifiedTopology: true})
+		.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}`)
 		.then((client) => client)
 		.catch((err) => {
 			console.error(err);
@@ -71,7 +70,7 @@ export const pingDB = async (useTestDb = false) => {
 	client.close();
 	const { ok } = result;
 	return ok;
-}
+};
 
 
 /**
@@ -88,7 +87,7 @@ export const executeDBRequest = (dbCollection, useTestDb = false) => dbRequest =
 	const result = await dbRequest(collection)(...requestParams);
 	client.close();
 	return result;
-}
+};
 
 
 /**
