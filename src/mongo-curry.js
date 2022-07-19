@@ -26,7 +26,7 @@ export const config = ({DB_URL, DB_PORT, DB_NAME, TEST_DB_NAME}) => {
 			? console.log(`${key} is already defined in process.env.`) 
 			: process.env[key] = configOptions[key]
 	);
-}
+};
 
 
 
@@ -71,7 +71,7 @@ export const pingDB = async (useTestDb = false) => {
 	client.close();
 	const { ok } = result;
 	return ok;
-}
+};
 
 
 /**
@@ -88,8 +88,18 @@ export const executeDBRequest = (dbCollection, useTestDb = false) => dbRequest =
 	const result = await dbRequest(collection)(...requestParams);
 	client.close();
 	return result;
-}
+};
 
+/**
+ * Using an injected MongoDB collection, runs request and returns results
+ * 
+ * @param { Object } collection - The target database name and collection.
+ * @param { function } request - The function request to run ex. `insertItemIntoCollection`.
+ * @param requestParams - The parameters to pass to the request function.
+ */
+export const storageActionOn = (collection) => dbRequest => async (...requestParams) => {
+	return await dbRequest(collection)(...requestParams);
+};
 
 /**
  * Finds all items in the specified collection
