@@ -32,7 +32,7 @@ export const config = ({DB_URL, DB_PORT, DB_NAME, TEST_DB_NAME}) => {
 /**
  * Creates a connection to the database and returns the client.
  */
-export const connectToDB = async () => 
+const connectToDB = async () => 
 	MongoDB.MongoClient
 		.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}`)
 		.then((client) => client)
@@ -47,7 +47,7 @@ export const connectToDB = async () =>
  * @param { object } client - the database client
  * @param {string} dbName - the name of the database ex. 'test'
  */
-export const useDB = (client: MongoDB.MongoClient) => async (dbName: string) => client.db(dbName);
+const useDB = (client: MongoDB.MongoClient) => async (dbName: string) => client.db(dbName);
 
 
 /**
@@ -55,8 +55,35 @@ export const useDB = (client: MongoDB.MongoClient) => async (dbName: string) => 
  * @param { object } db - the specific database object from the client
  * @param { string } collectionName - the name of the collection
  */
-export const useCollection = (db: MongoDB.Db) => (collectionName: string) => db.collection(collectionName);
+const useCollection = (db: MongoDB.Db) => (collectionName: string) => db.collection(collectionName);
 
+/**
+ * Pings the database to make sure a valid connection has been established
+ * @param { boolean } useTestDb - whether or not to use the test database
+ * @returns { number } ok - number of ok connections (0 if none, 1 if one, etc.)
+ */ 
+// export const pingDB = async (useTestDb = false) => {
+// 	const client = await connectToDB();
+// 	const db = await useDB(client)(useTestDb ? process.env.TEST_DB_NAME : process.env.DB_NAME);
+// 	const result = await db.command({ping: 1});
+// 	client.close();
+// 	const { ok } = result;
+// 	return ok;
+// };
+
+
+/**
+ * Runs a request on the database and returns the results
+ * @param { MongoDB.MongoClient } mongoClient - Global instance with connection pool.
+ * @param { string } dbName - The database name to use.
+ * @param { function } request - the request you want to run ex. `insertUser`
+ * @param requestParams - the parameters you want to pass to the request function 
+ */
+export const executeDBRequest = (mongoClient: MongoDB.MongoClient, dbName: string) => (dbCollection: string) => dbRequest => async (...requestParams) => {
+	const db = await useDB(mongoClient)(dbName);
+	const collection = useCollection(db)(dbCollection);
+	return await dbRequest(collection)(...requestParams);
+};
 
 /**
  * Finds all items in the specified collection
